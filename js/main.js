@@ -222,7 +222,11 @@ let app = new Vue({
         premium: true,
         cart: []
     },
-
+    methods: {
+        updateCart(newCart) {
+            this.cart = newCart;
+        }
+    },
 });
 
 
