@@ -181,6 +181,20 @@ Vue.component('product-tabs', {
             selectedTab: 'Reviews'
         };
     },
+    props: {
+        reviews: {
+            type: Array,
+            required: false
+        },
+        details: {
+            type: Array,
+            required: false
+        },
+        shippingCost: {
+            type: String,
+            required: true
+        }
+    }
 });
 
 
