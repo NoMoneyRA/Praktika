@@ -108,7 +108,46 @@ Vue.component('product-details', {
 
 Vue.component('product-review', {
     template: `
-
+    <form class="review-form" @submit.prevent="onSubmit">
+      <p v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="error in errors">{{ error }}</li>
+        </ul>
+      </p>
+      <p>
+        <label for="name">Name:</label>
+        <input id="name" v-model="name" placeholder="name">
+      </p>
+      <p>
+        <label for="review">Review:</label>
+        <textarea id="review" v-model="review"></textarea>
+      </p>
+      <p>
+        <label for="rating">Rating:</label>
+        <select id="rating" v-model.number="rating">
+          <option>5</option>
+          <option>4</option>
+          <option>3</option>
+          <option>2</option>
+          <option>1</option>
+        </select>
+      </p>
+      <p>Would you recommend this product? <br>
+        <label for="yes">
+          Yes
+          <input style="width: auto; align-items: center" type="radio" id="yes" name="recommend" value="Yes" v-model="recommendation"/>
+        </label>
+        <br>
+        <label for="no">
+          No
+          <input style="width: auto" type="radio" id="no" name="recommend" value="No" v-model="recommendation"/>
+        </label>
+      </p>
+      <p>
+        <input type="submit" value="Submit">
+      </p>
+    </form>
   `,
     data() {
         return {
