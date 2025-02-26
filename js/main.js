@@ -89,7 +89,37 @@ Vue.component('product', {
             return this.premium ? "Free" : 2.99;
         }
     },
+    methods: {
+        updateProduct(index) {
+            this.selectedVariant = index;
+        },
+        addToCart() {
+            const variant = this.variants[this.selectedVariant];
+            // Добавляем товар в корзину
+            this.cart.push({
+                id: variant.variantId,
+                color: variant.variantColor,
+                image: variant.variantImage
+            });
+            this.$emit('update-cart', this.cart);
+        },
+        deleteToCart() {
+            this.cart.pop();
+            this.$emit('update-cart', this.cart);
+        },
+    },
+    created() {
+        eventBus.$on('review-submitted', productReview => {
+            this.reviews.push(productReview);
+        });
+    },
+    destroyed() {
+        eventBus.$off('review-submitted');
+    }
 });
+
+
+
 Vue.component('product-details', {
     props: {
         details: {
