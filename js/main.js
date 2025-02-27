@@ -179,38 +179,9 @@ Vue.component('product-review', {
       </p>
     </form>
   `,
-    data() {
-        return {
-            name: null,
-            review: null,
-            rating: null,
-            errors: [],
-            recommendation: null,
-        };
+
     },
-    methods: {
-        onSubmit() {
-            if (this.name && this.review && this.rating) {
-                let productReview = {
-                    name: this.name,
-                    review: this.review,
-                    rating: this.rating,
-                    recommendation: this.recommendation
-                };
-                eventBus.$emit('review-submitted', productReview);
-                this.name = null;
-                this.review = null;
-                this.rating = null;
-                this.recommendation = null;
-            } else {
-                if (!this.name) this.errors.push("Name required.");
-                if (!this.review) this.errors.push("Review required.");
-                if (!this.rating) this.errors.push("Rating required.");
-                if (!this.recommendation) this.errors.push("Recommendation required.");
-            }
-        }
-    }
-});
+
 
 
 Vue.component('product-tabs', {
