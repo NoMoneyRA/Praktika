@@ -68,7 +68,7 @@ Vue.component('product', {
             ],
             selectedVariant: 0,
             cart: [],
-            reviews: []
+            reviews: JSON.parse(localStorage.getItem('productReviews'))
         };
     },
     computed: {
@@ -109,8 +109,15 @@ Vue.component('product', {
         },
     },
     created() {
+        let storedReviews = localStorage.getItem('productReviews');
+        if (storedReviews) {
+            this.reviews = JSON.parse(storedReviews);
+        } else {
+            this.reviews = [];
+        }
         eventBus.$on('review-submitted', productReview => {
             this.reviews.push(productReview);
+            localStorage.setItem('productReviews', JSON.stringify(this.reviews));
         });
     },
     destroyed() {
@@ -179,7 +186,14 @@ Vue.component('product-review', {
       </p>
     </form>
   `,
-
+    data() {
+        return {
+            name: null,
+            review: null,
+            rating: null,
+            errors: [],
+            recommendation: null,
+        };
     },
     methods: {
         onSubmit() {
